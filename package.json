@@ -1,0 +1,30 @@
+{
+  "name": "firekyll",
+  "version": "0.9.0",
+  "description": "quickly create your blog with jekyll staff",
+  "main": "index.js",
+  "bin": {
+    "firekyll": "fk.js"
+  },
+  "dependencies": {
+    "commander": "^2.8.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wilsson/firekyll.git"
+  },
+  "keywords": [
+    "jekyll",
+    "blog"
+  ],
+  "author": "wilsson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wilsson/firekyll/issues"
+  },
+  "homepage": "https://github.com/wilsson/firekyll"
+}
