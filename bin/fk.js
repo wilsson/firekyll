@@ -1,38 +1,28 @@
-var commander = require('commander'),
-         path = require('path');
+var program = require('commander'),
+                path = require('path'),
+            creator = require('./creator');
 
-commander.parse(process.argv)
-//console.log(commander,commander.rawArgs.length);
+program
+    .version('0.0.1');
 
-function newpost(){
-  var d = new Date();
-  var fetch = [];
-  fetch.push(d.getFullYear());
-  fetch.push(d.getDate());
-  fetch.push(d.getDay());
+program.parse(process.argv);
 
-  var name = fetch.join('-')+'-'+commander.args[1]+'.markdown'; 
-  console.log(name);
-}
+var cli = new creator(program);
+var command = program.args;
 
-var command = commander.args;
-console.log(command.length);
-if(command.length == 0){
-  console.log('create project jekyll..');
-}
-
-if(command.length >= 3 && command.length > 0){
-  console.log('1');
+if(command.length >= 3){ 
   commander.help();
 }else{
-  console.log('2');
-  var command = commander.args[0];
+  var command = program.args[0];
   switch(command){
     case 'newpost':
-      newpost();
+      cli.run('newpost');
+      break;
+    case 'new':
+      cli.run('new');  
       break;
     default:
-      commander.help();
+      console.log('help comando no encontrado');
+      program.help();
   }
 }
-
