@@ -16,6 +16,8 @@ function creator(commander){
 creator.prototype.newpost = function(){
   if(this.searchDirectory()){
     console.log('creando post..',this.createNamePost());
+    fs.createReadStream(path.join(__dirname,'templates/post'))
+      .pipe(fs.createWriteStream(path.join('_posts',this.createNamePost())));
   }else{
     console.log('no existe directorio _posts');
   }
@@ -27,7 +29,7 @@ creator.prototype.new = function(){
 	'jekyll',
     ['new',this.commander.args[1]],
     {
-      cwd:process.cwd()
+      cwd:__dirname
     });
 };
 
