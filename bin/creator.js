@@ -8,29 +8,30 @@ function creator(commander){
     if(typeof this[task] == 'function' ){
       this[task]();
       }else{
-        console.log('comando no encontrado');
+        console.log('command not found');
       }
   }  
 }
 
 creator.prototype.newpost = function(){
   if(this.searchDirectory()){
-    console.log('creando post..',this.createNamePost());
     fs.createReadStream(path.join(__dirname,'templates/post'))
       .pipe(fs.createWriteStream(path.join('_posts',this.createNamePost())));
+    console.log('post created ',this.createNamePost());
   }else{
-    console.log('no existe directorio _posts');
+    console.log('directory does not exist _posts');
   }
 };
 
 creator.prototype.new = function(){
-  console.log('create project jekyll..');
   cp.spawn(
-	'jekyll',
+    'jekyll',
     ['new',this.commander.args[1]],
     {
       cwd:__dirname
-    });
+    }
+  );
+  console.log('project created jekyll');
 };
 
 creator.prototype.createNamePost = function(){
