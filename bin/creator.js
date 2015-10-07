@@ -46,7 +46,7 @@ creator.prototype.createNamePost = function(){
 
 creator.prototype.searchDirectory = function(){
   var _posts = [];
-  var cwd = process.cwd();
+  var cwd = __dirname;
   _posts = fs.readdirSync(cwd)
   for(var i = 0;i<_posts.length;i++){
     if(_posts[i] == '_posts'){
