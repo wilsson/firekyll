@@ -1,6 +1,15 @@
-var cp = require('child_process')
-    fs = require('fs'), 
-  path = require('path');
+/**
+ *
+ * @module fk
+ * @author Wilson Flores
+ *
+ */
+
+var  cp = require('child_process')
+     fs = require('fs'), 
+   path = require('path'),
+symbols = require('log-symbols'),
+chalk   = require('chalk');
 
 function creator(commander){
   this.commander = commander;
@@ -14,20 +23,26 @@ function creator(commander){
 }
 
 creator.prototype.newpost = function(){
-  var _posts = this.searchDirectoryPosts();
+  var _posts = this.searchFile(process.cwd(),'_posts');
   if(_posts){
     var _file = this.searchFile('_posts',this.createNamePost());
     if(!_file){
       fs.createReadStream(path.join(__dirname,'templates/post'))
         .pipe(fs.createWriteStream(path.join('_posts',this.createNamePost())));
-      console.log('post created ',this.createNamePost());
+      console.log('');
+      console.log('  '+symbols.success,chalk.green('post created ',this.createNamePost()));
+      console.log('');
     }
     if(_file){
-      console.log('post name already exists!');
+      console.log('');
+      console.log('  '+symbols.warning,chalk.yellow('post name already exists !'));
+      console.log('');
     }
   }
   if(!_posts){
-    console.log('directory does not exist _posts');
+    console.log('');
+    console.log('  '+symbols.warning,chalk.yellow('directory does not exist _posts !'));
+    console.log('');
   }
 };
 
@@ -39,7 +54,9 @@ creator.prototype.new = function(){
       cwd:process.cwd()
     }
   );
-  console.log('project created jekyll');
+  console.log('');
+  console.log('  '+symbols.success,chalk.green('project created jekyll !'));
+  console.log('');
 };
 
 creator.prototype.createNamePost = function(){
@@ -52,27 +69,33 @@ creator.prototype.createNamePost = function(){
   return name;
 };
 
-creator.prototype.searchDirectoryPosts = function(){
+creator.prototype.searchFile = function(cwd,name){
   var _posts = [];
-  var cwd = process.cwd();
   _posts = fs.readdirSync(cwd);
   for(var i = 0;i<_posts.length;i++){
-    if(_posts[i] == '_posts'){
+    if(_posts[i] == name){
       return true;
     }
   }
   return false;
 }
 
-creator.prototype.searchFile = function(sc,name){
+creator.prototype.listPosts = function(){
   var _files = [];
-  _files = fs.readdirSync(sc);
-  for(var i = 0;i<_files.length;i++){
-    if(_files[i] == name){
-      return true;
-    }
+  if(this.searchFile(process.cwd(),'_posts')){
+    _files = fs.readdirSync('_posts');
+    console.log('');
+    console.log(' List:');
+    console.log('');
+    _files.forEach(function(e){
+      console.log(' ',chalk.bold(e));
+      console.log('');
+    });
+  }else{
+    console.log('');
+    console.log('  '+symbols.warning,chalk.yellow('directory does not exist _posts !'));
+    console.log('');
   }
-  return false;
-}
-
+  
+};
 module.exports = creator;
