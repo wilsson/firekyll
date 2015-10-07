@@ -1,28 +1,35 @@
 var program = require('commander'),
-                path = require('path'),
-            creator = require('./creator');
+       path = require('path'),
+    creator = require('./creator');
 
-program
-    .version('0.0.1');
+program.on('--help', function(){
+  console.log('  Examples:');
+  console.log('');
+  console.log('    $ jk new     [nameProject]');
+  console.log('    $ jk newpost [namePost]');
+  console.log('');
+});
 
 program.parse(process.argv);
 
-var cli = new creator(program);
+var zap = new creator(program);
 var command = program.args;
 
 if(command.length >= 3){ 
-  commander.help();
-}else{
+  program.help();
+}
+if(command.length > 1){
   var command = program.args[0];
   switch(command){
     case 'newpost':
-      cli.run('newpost');
+      zap.run('newpost');
       break;
     case 'new':
-      cli.run('new');  
+      zap.run('new');
       break;
     default:
-      console.log('help comando no encontrado');
-      program.help();
+      console.log('command not found');
   }
+}else{
+  program.help();
 }
