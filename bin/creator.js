@@ -1,22 +1,23 @@
 var cp = require('child_process')
-       fs = require('fs');
+    fs = require('fs'), 
+  path = require('path');
 
 function creator(commander){
-    this.commander = commander;
-    this.run = function(task){
-        if(typeof this[task] == 'function' ){
-            this[task]();
-        }else{
-            console.log('comando no encontrado');
-        }
-    }  
+  this.commander = commander;
+  this.run = function(task){
+    if(typeof this[task] == 'function' ){
+      this[task]();
+      }else{
+        console.log('comando no encontrado');
+      }
+  }  
 }
 
 creator.prototype.newpost = function(){
   if(this.searchDirectory()){
-      console.log('creando post..',this.createNamePost());
+    console.log('creando post..',this.createNamePost());
   }else{
-      console.log('no existe directorio _posts');
+    console.log('no existe directorio _posts');
   }
 };
 
@@ -26,7 +27,7 @@ creator.prototype.new = function(){
 	'jekyll',
     ['new',this.commander.args[1]],
     {
-        cwd:process.cwd()
+      cwd:process.cwd()
     });
 };
 
@@ -41,14 +42,14 @@ creator.prototype.createNamePost = function(){
 };
 
 creator.prototype.searchDirectory = function(){
-    var _posts = [];
-    var cwd = process.cwd();
-    _posts = fs.readdirSync(cwd)
-    for(var i = 0;i<_posts.length;i++){
-        if(_posts[i] == '_posts'){
-            return true;
-        }
+  var _posts = [];
+  var cwd = process.cwd();
+  _posts = fs.readdirSync(cwd)
+  for(var i = 0;i<_posts.length;i++){
+    if(_posts[i] == '_posts'){
+      return true;
     }
-    return false;
+  }
+  return false;
 }
 module.exports = creator;
