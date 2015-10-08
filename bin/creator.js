@@ -1,24 +1,20 @@
 /**
  *
- * @module fk
+ * @module creator
  * @author Wilson Flores
  *
  */
 
-var  cp = require('child_process')
-     fs = require('fs'), 
-   path = require('path'),
-symbols = require('log-symbols'),
-chalk   = require('chalk');
-
-function creator(commander){
-  this.commander = commander;
+function creator(plugins){
+  this.commander = plugins.program;
+  this.plugins = plugins;
+  this.messages = new plugins.messages(this.plugins);
   this.run = function(task){
     if(typeof this[task] == 'function' ){
       this[task]();
-      }else{
-        console.log('command not found');
-      }
+    }else{
+      this.messages.commandNotFound();
+    }
   }  
 }
 
@@ -27,36 +23,29 @@ creator.prototype.newpost = function(){
   if(_posts){
     var _file = this.searchFile('_posts',this.createNamePost());
     if(!_file){
-      fs.createReadStream(path.join(__dirname,'templates/post'))
-        .pipe(fs.createWriteStream(path.join('_posts',this.createNamePost())));
-      console.log('');
-      console.log('  '+symbols.success,chalk.green('post created ',this.createNamePost()));
-      console.log('');
+      this.plugins.fs.createReadStream(this.plugins.path.join(__dirname,'templates/post'))
+        .pipe(this.plugins.fs.createWriteStream(this.plugins.path.join('_posts',this.createNamePost())));
+      this.messages.successCreatePost();
     }
     if(_file){
-      console.log('');
-      console.log('  '+symbols.warning,chalk.yellow('post name already exists !'));
-      console.log('');
+      this.messages.postExists();
     }
   }
   if(!_posts){
-    console.log('');
-    console.log('  '+symbols.warning,chalk.yellow('directory does not exist _posts !'));
-    console.log('');
+    this.messages.directoryPostNotExist();
   }
 };
 
 creator.prototype.new = function(){
-  cp.spawn(
-    'jekyll',
+  var jekyll = process.platform === 'win32' ? 'jekyll.bat' : 'jekyll';
+  this.plugins.cp.spawn(
+    jekyll,
     ['new',this.commander.args[1]],
     {
       cwd:process.cwd()
     }
   );
-  console.log('');
-  console.log('  '+symbols.success,chalk.green('project created jekyll !'));
-  console.log('');
+  this.messages.successCreateProject();
 };
 
 creator.prototype.createNamePost = function(){
@@ -71,7 +60,7 @@ creator.prototype.createNamePost = function(){
 
 creator.prototype.searchFile = function(cwd,name){
   var _posts = [];
-  _posts = fs.readdirSync(cwd);
+  _posts = this.plugins.fs.readdirSync(cwd);
   for(var i = 0;i<_posts.length;i++){
     if(_posts[i] == name){
       return true;
@@ -83,19 +72,16 @@ creator.prototype.searchFile = function(cwd,name){
 creator.prototype.listPosts = function(){
   var _files = [];
   if(this.searchFile(process.cwd(),'_posts')){
-    _files = fs.readdirSync('_posts');
+    _files = this.plugins.fs.readdirSync('_posts');
     console.log('');
     console.log(' List:');
     console.log('');
     _files.forEach(function(e){
-      console.log(' ',chalk.bold(e));
-      console.log('');
+      console.log(e);
     });
   }else{
-    console.log('');
-    console.log('  '+symbols.warning,chalk.yellow('directory does not exist _posts !'));
-    console.log('');
+    this.messages.directoryPostNotExist();
   }
-  
 };
+
 module.exports = creator;

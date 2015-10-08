@@ -4,14 +4,10 @@
  * @author Wilson Flores
  *
  */
+ 
+var plugins = require('./plugins');
 
-var program = require('commander'),
-       path = require('path'),
-    creator = require('./creator'),
-    symbols = require('log-symbols'),
-    chalk   = require('chalk');
-
-program.on('--help', function(){
+plugins.program.on('--help', function(){
   console.log('  Examples:');
   console.log('');
   console.log('    $ jk new     [nameProject]');
@@ -20,13 +16,13 @@ program.on('--help', function(){
   console.log('');
 });
 
-program.parse(process.argv);
-
-var zap = new creator(program);
-var command = program.args;
+plugins.program.parse(process.argv);
+var messages = new plugins.messages(plugins);
+var zap = new plugins.creator(plugins);
+var command = plugins.program.args;
 
 if(command.length >= 3){ 
-  program.help();
+  plugins.program.help();
 }
 if(command.length == 1){
    if(command[0] == 'list'){
@@ -35,7 +31,7 @@ if(command.length == 1){
     }
 }
 if(command.length > 1){
-  var command = program.args[0];
+  var command = plugins.program.args[0];
   switch(command){
     case 'newpost':
       zap.run('newpost');
@@ -44,11 +40,8 @@ if(command.length > 1){
       zap.run('new');
       break;
     default:
-      console.log('');
-      console.log('  '+symbols.warning,chalk.yellow('command not found !'));
-      console.log('');
+      messages.commandNotFound();
   }
 }else{
-  console.log(command.length,'<<');
-  program.help();
+  plugins.program.help();
 }
