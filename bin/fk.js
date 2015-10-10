@@ -63,6 +63,7 @@ switch(true){
 
   case plugins.program.server:
     console.log('iniciando server jekyll');
+    creator.run('server');
     break;
 
   case plugins.program.build:

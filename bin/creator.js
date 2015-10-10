@@ -18,6 +18,7 @@ function creator(plugins){
   this.fs        = this.plugins.fs;
   this.path      = this.plugins.path;
   this.utilities = this.plugins.utilities;
+  this.jekyll    = process.platform === 'win32' ? 'jekyll.bat' : 'jekyll';
   this.messages  = new plugins.messages(this.plugins);
 
   this.run = function(task){
@@ -64,11 +65,16 @@ creator.prototype.newpost = function(){
  */
 
 creator.prototype.new = function(){
-  var jekyll = process.platform === 'win32' ? 'jekyll.bat' : 'jekyll';
   var _commands = ['new',this.program.new];
-  this.utilities.executeCommand(jekyll,_commands,this.cp);
+  this.utilities.executeCommand(this.jekyll,_commands,this.cp);
   this.messages.successCreateProject();
 };
+
+creator.prototype.server = function(){
+  var _commands = ['server'];
+  this.utilities.executeCommand(this.jekyll,_commands,this.cp);
+  this.messages.server();
+}
 
 /*
  *
