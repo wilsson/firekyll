@@ -117,10 +117,12 @@ creator.prototype.searchFile = function(cwd,name){
 
 creator.prototype.listPosts = function(){
   var _files = [];
+  var stats;
   if(this.searchFile(process.cwd(),'_posts')){
     _files = this.fs.readdirSync('_posts');
     for (var _i=0; _i<_files.length;_i++) {
-      this.messages.listPosts(_files[_i]);
+      stats = this.fs.statSync(this.path.join(process.cwd(),'_posts',_files[_i]));
+      this.messages.listPosts(_files[_i],stats.size);
     };
   }else{
     this.messages.directoryPostNotExist();
