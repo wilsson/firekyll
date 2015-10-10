@@ -17,3 +17,13 @@ exports.isFunction = function(task,context){
   } 
   return false;
 }
+
+exports.executeCommand = function(command,_commands,cp){
+  cp.spawn(
+    command,
+    _commands,
+    {
+      cwd:process.cwd()
+    }
+  );
+}

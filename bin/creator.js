@@ -65,13 +65,8 @@ creator.prototype.newpost = function(){
 
 creator.prototype.new = function(){
   var jekyll = process.platform === 'win32' ? 'jekyll.bat' : 'jekyll';
-  this.cp.spawn(
-    jekyll,
-    ['new',this.program.new],
-    {
-      cwd:process.cwd()
-    }
-  );
+  var _commands = ['new',this.program.new];
+  this.utilities.executeCommand(jekyll,_commands,this.cp);
   this.messages.successCreateProject();
 };
 
