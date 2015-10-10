@@ -24,11 +24,11 @@ plugins.program
 plugins.program.on('--help', function(){
   console.log('  Examples:');
   console.log('');
-  console.log('    $ jk new     [nameProject]');
-  console.log('    $ jk newpost [namePost]');
-  console.log('    $ jk list');
-  console.log('    $ jk server');
-  console.log('    $ jk build');
+  console.log('    $ fk new     [nameProject]');
+  console.log('    $ fk newpost [namePost]');
+  console.log('    $ fk list');
+  console.log('    $ fk server');
+  console.log('    $ fk build');
   console.log('');
 });
 
@@ -62,7 +62,6 @@ switch(true){
     break;
 
   case plugins.program.server:
-    console.log('iniciando server jekyll');
     creator.run('server');
     break;
 
