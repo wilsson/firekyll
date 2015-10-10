@@ -7,14 +7,15 @@
  */
 
 var plugins = {
-  cp       : require('child_process'),
-  fs       : require('fs'), 
-  path     : require('path'),
-  symbols  : require('log-symbols'),
-  chalk    : require('chalk'),
-  program  : require('commander'),
-  creator  : require('./creator'),
-  messages : require('./messages')
+  cp        : require('child_process'),
+  fs        : require('fs'), 
+  path      : require('path'),
+  symbols   : require('log-symbols'),
+  chalk     : require('chalk'),
+  program   : require('commander'),
+  creator   : require('./creator'),
+  messages  : require('./messages'),
+  utilities : require('./utilities')
 };
 
 module.exports = plugins;

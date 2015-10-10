@@ -7,41 +7,51 @@
  */
 
 function messages(plugins){
+  this.output = '';
   this.plugins = plugins;
 }
+
 messages.prototype.commandNotFound = function(){
-  console.log('');
-  console.log('  '+this.plugins.symbols.warning,this.plugins.chalk.yellow('command not found !'));
-  console.log('');
+  this.output+='\n';
+  this.output+=' '+this.plugins.symbols.warning+' '+this.plugins.chalk.yellow('command not found');
+  this.output+='\n';
+  console.log(this.output);
 }
 
 messages.prototype.successCreatePost = function(){
-  console.log('');
-  console.log('  '+this.plugins.symbols.success,this.plugins.chalk.green('post created '));
-  console.log('');
+  this.output+='\n';
+  this.output+=' '+this.plugins.symbols.success+' '+this.plugins.chalk.green('post created');
+  this.output+='\n';
+  console.log(this.output);
 }
 
 messages.prototype.postExists = function(){
-  console.log('');
-  console.log('  '+this.plugins.symbols.warning,this.plugins.chalk.yellow('post name already exists !'));
-  console.log('');
+  this.output+='\n';
+  this.output+=' '+this.plugins.symbols.warning+' '+this.plugins.chalk.yellow('post name already exists');
+  this.output+='\n';
+  console.log(this.output);
 }
 
 messages.prototype.directoryPostNotExist = function(){
-  console.log('');
-  console.log('  '+this.plugins.symbols.warning,this.plugins.chalk.yellow('directory does not exist _posts !'));
-  console.log('');
+  this.output+='\n';
+  this.output+=' '+this.plugins.symbols.warning+' '+this.plugins.chalk.yellow('directory does not exist _posts');
+  this.output+='\n';
+  console.log(this.output);
 }
 
 messages.prototype.successCreateProject = function(){
-  console.log('');
-  console.log('  '+this.plugins.symbols.success,this.plugins.chalk.green('project created jekyll !'));
-  console.log('');
+  this.output+='\n';
+  this.output+=' '+this.plugins.symbols.success+' '+this.plugins.chalk.green('project created jekyll');
+  this.output+='\n';
+  console.log(this.output);
 }
 
-messages.prototype.listPosts = function(e){
-  console.log(' ',this.plugins.chalk.bold(e));
-  console.log('');
+messages.prototype.listPosts = function(a){
+  this.output='';
+  this.output+='\n';
+  this.output+=' '+this.plugins.chalk.bold(a);
+  this.output+='\n';
+  console.log(this.output);
 }
 
 module.exports = messages;
