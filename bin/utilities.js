@@ -6,12 +6,12 @@
  *
  */
 
-exports.isTrueCommand = function(option){
+function isTrueCommand(option){
   var flag = typeof option === 'string' ? true : false;
   return flag;  
 }
 
-exports.executeCommand = function(command,_commands,cp){
+function executeCommand(command,_commands,cp){
   cp.spawn(
     command,
     _commands,
@@ -19,4 +19,10 @@ exports.executeCommand = function(command,_commands,cp){
       cwd:process.cwd()
     }
   );
+}
+
+
+module.exports = {
+  isTrueCommand : isTrueCommand,
+  executeCommand : executeCommand
 }
