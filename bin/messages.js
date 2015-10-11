@@ -18,6 +18,13 @@ messages.prototype.server = function(){
   console.log(this.output);
 }
 
+messages.prototype.build = function(){
+  this.output+='\n';
+  this.output+=' '+this.plugins.symbols.success+' '+this.plugins.chalk.green('build jekyll');
+  this.output+='\n';
+  console.log(this.output);
+}
+
 messages.prototype.commandNotFound = function(){
   this.output+='\n';
   this.output+=' '+this.plugins.symbols.warning+' '+this.plugins.chalk.yellow('command not found');

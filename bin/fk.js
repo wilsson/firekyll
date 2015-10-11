@@ -18,7 +18,7 @@ plugins.program
   .option('new [name]','new project')
   .option('newpost [name]','new post')
   .option('list','list posts')
-  .option('server','server')
+  .option('server','server jekyll')
   .option('build','build');
 
 plugins.program.on('--help', function(){
@@ -67,7 +67,7 @@ if(plugins.program.args.length == 0){
       break;
 
     case plugins.program.build:
-      console.log('build jekyll');
+      creator.build();
       break;
 
     default:

@@ -58,10 +58,28 @@ creator.prototype.new = function(){
   this.messages.successCreateProject();
 };
 
+/*
+ *
+ * @function server jekyll
+ *
+ */
+
 creator.prototype.server = function(){
   var _commands = ['server'];
   this.utilities.executeCommand(this.jekyll,_commands,this.cp);
   this.messages.server();
+}
+
+/*
+ *
+ * @function build jekyll
+ *
+ */
+
+creator.prototype.build = function(){
+  var _commands = ['build'];
+  this.utilities.executeCommand(this.jekyll,_commands,this.cp);
+  this.messages.build();
 }
 
 /*
