@@ -56,7 +56,7 @@ messages.prototype.successCreateProject = function(){
 messages.prototype.listPosts = function(a,b){
   this.output='';
   this.output+='\n';
-  this.output+=' '+this.plugins.chalk.magenta(b+' bytes | ')+this.plugins.chalk.bold(a);
+  this.output+=' '+this.plugins.chalk.magenta(b+' bytes - ')+this.plugins.chalk.bold(a);
   this.output+='\n';
   console.log(this.output);
 }

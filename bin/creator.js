@@ -20,18 +20,6 @@ function creator(plugins){
   this.utilities = this.plugins.utilities;
   this.jekyll    = process.platform === 'win32' ? 'jekyll.bat' : 'jekyll';
   this.messages  = new plugins.messages(this.plugins);
-
-  this.run = function(task){
-    if(this.program.args.length == 0){
-      if(this.utilities.isFunction(task,this)){
-        this[task]();
-      }else{
-        this.messages.commandNotFound();
-      }
-    }else{
-      this.messages.commandNotFound();
-    }
-  }  
 }
 
 /*

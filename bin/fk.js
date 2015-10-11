@@ -48,28 +48,30 @@ var creator = new plugins.creator(plugins);
  *
  */
 
-switch(true){
-  case plugins.utilities.isTrueCommand(plugins.program.new):
-    creator.run('new');
-    break;
+if(plugins.program.args.length == 0){
+  switch(true){
+    case plugins.utilities.isTrueCommand(plugins.program.new):
+      creator.new();
+      break;
 
-  case plugins.utilities.isTrueCommand(plugins.program.newpost):
-    creator.run('newpost');
-    break;
+    case plugins.utilities.isTrueCommand(plugins.program.newpost):
+      creator.newpost();
+      break;
 
-  case plugins.program.list:
-    creator.run('listPosts');
-    break;
+    case plugins.program.list:
+      creator.listPosts();
+      break;
 
-  case plugins.program.server:
-    creator.run('server');
-    break;
+    case plugins.program.server:
+      creator.server();
+      break;
 
-  case plugins.program.build:
-    console.log('build jekyll');
-    break;
+    case plugins.program.build:
+      console.log('build jekyll');
+      break;
 
-  default:
-    plugins.program.help();
+    default:
+      plugins.program.help();
+  }
 }
 
