@@ -47,6 +47,13 @@ messages.prototype.postExists = function(){
   console.log(this.output);
 }
 
+messages.prototype.projectExists = function(){
+  this.output+='\n';
+  this.output+=' '+this.plugins.symbols.warning+' '+this.plugins.chalk.yellow('project name already exists');
+  this.output+='\n';
+  console.log(this.output);
+}
+
 messages.prototype.directoryPostNotExist = function(){
   this.output+='\n';
   this.output+=' '+this.plugins.symbols.warning+' '+this.plugins.chalk.yellow('directory does not exist _posts');
@@ -68,7 +75,6 @@ messages.prototype.listPosts = function(a,b,wrapper,length){
     if(wrapper.length == length){
         console.log(wrapper.toString());
     }
-  //  console.log(wrapper.length);
 }
 
 module.exports = messages;

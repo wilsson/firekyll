@@ -18,13 +18,20 @@ function creator(plugins){
   this.fs        = this.plugins.fs;
   this.path      = this.plugins.path;
   this.utilities = this.plugins.utilities;
+  this.table     = this.plugins.table;
+  this.inquirer  = this.plugins.inquirer;
   this.jekyll    = process.platform === 'win32' ? 'jekyll.bat' : 'jekyll';
   this.messages  = new this.plugins.messages(this.plugins);
-    this.wrapper = new this.plugins.table({
-        head:[this.plugins.chalk.cyan.bold('Size'),this.plugins.chalk.cyan.bold('Name')],
-        colWidths:[25,50]
-    });
-    
+  this.wrapper   = new this.table({
+    head:[this.plugins.chalk.cyan.bold('Size'),this.plugins.chalk.cyan.bold('Name')],
+    colWidths:[25,50]
+  });
+  this.choicesNew = [
+    new this.inquirer.Separator(),
+    'Create with firekyll',
+    'Create with firekyll + gulp + browserSync + sass',
+    new this.inquirer.Separator()
+  ]    
 }
 
 /*
@@ -58,10 +65,45 @@ creator.prototype.newpost = function(){
  */
 
 creator.prototype.new = function(){
-  var _commands = ['new',this.program.new];
-  this.utilities.executeCommand(this.jekyll,_commands,this.cp);
-  this.messages.successCreateProject();
-};
+  var ctx = this;
+  this.inquirer.prompt([
+    {
+      type:'list',
+      name:'home',
+      message:'What would you like to do?',
+      choices:ctx.choicesNew,
+    }
+  ],function(answers){
+    var _project = ctx.searchFile(process.cwd(),ctx.program.new);
+    if(answers.home == ctx.choicesNew[1]){
+      if(!_project){
+        var _commands = ['new',ctx.program.new];
+        ctx.utilities.executeCommand(ctx.jekyll,_commands,ctx.cp);
+        ctx.messages.successCreateProject();
+      }else{
+        ctx.messages.projectExists();
+      }
+    }
+
+    if(answers.home == ctx.choicesNew[2]){
+      try{
+        if(!_project){
+          var _commands = ['new',ctx.program.new];
+          ctx.utilities.executeCommand(ctx.jekyll,_commands,ctx.cp);
+          ctx.messages.successCreateProject();
+
+          var generator = require('firekyll-generator-gulp-webapp');
+          var run = new generator();
+          run.directory();
+        }else{
+          ctx.messages.projectExists()
+        }
+      }catch(e){
+        console.log(e.code);
+      } 
+    }
+  });
+}
 
 /*
  *
