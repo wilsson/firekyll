@@ -19,7 +19,12 @@ function creator(plugins){
   this.path      = this.plugins.path;
   this.utilities = this.plugins.utilities;
   this.jekyll    = process.platform === 'win32' ? 'jekyll.bat' : 'jekyll';
-  this.messages  = new plugins.messages(this.plugins);
+  this.messages  = new this.plugins.messages(this.plugins);
+    this.wrapper = new this.plugins.table({
+        head:[this.plugins.chalk.cyan.bold('Size'),this.plugins.chalk.cyan.bold('Name')],
+        colWidths:[25,50]
+    });
+    
 }
 
 /*
@@ -90,11 +95,11 @@ creator.prototype.build = function(){
 
 creator.prototype.createNamePost = function(){
   var d = new Date();
-  var fetch = [];
-  fetch.push(d.getFullYear());
-  fetch.push(d.getDate());
-  fetch.push(d.getDay());
-  var name = fetch.join('-')+'-'+this.program.newpost+'.markdown'; 
+  var date = [];
+  date.push(d.getFullYear());
+  date.push(d.getMonth()+1);
+  date.push(d.getDate());
+  var name = date.join('-')+'-'+this.program.newpost+'.markdown'; 
   return name;
 };
 
@@ -128,7 +133,7 @@ creator.prototype.listPosts = function(){
     _files = this.fs.readdirSync('_posts');
     for (var _i=0; _i<_files.length;_i++) {
       stats = this.fs.statSync(this.path.join(process.cwd(),'_posts',_files[_i]));
-      this.messages.listPosts(_files[_i],stats.size);
+        this.messages.listPosts(_files[_i],stats.size,this.wrapper,_files.length);
     };
   }else{
     this.messages.directoryPostNotExist();

@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /**
  *
  * @module fk
@@ -74,4 +75,3 @@ if(plugins.program.args.length == 0){
       plugins.program.help();
   }
 }
-

@@ -15,7 +15,8 @@ var plugins = {
   program   : require('commander'),
   creator   : require('./creator'),
   messages  : require('./messages'),
-  utilities : require('./utilities')
+  utilities : require('./utilities'),
+  table    : require('cli-table')
 };
 
 module.exports = plugins;

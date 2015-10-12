@@ -9,6 +9,7 @@
 function messages(plugins){
   this.output = '';
   this.plugins = plugins;
+    this.tablero = [];
 }
 
 messages.prototype.server = function(){
@@ -60,12 +61,14 @@ messages.prototype.successCreateProject = function(){
   console.log(this.output);
 }
 
-messages.prototype.listPosts = function(a,b){
-  this.output='';
-  this.output+='\n';
-  this.output+=' '+this.plugins.chalk.magenta(b+' bytes - ')+this.plugins.chalk.bold(a);
-  this.output+='\n';
-  console.log(this.output);
+messages.prototype.listPosts = function(a,b,wrapper,length){
+  wrapper.push(
+  	  [this.plugins.chalk.magenta(b+' bytes'),this.plugins.chalk.bold(a)]
+  );
+    if(wrapper.length == length){
+        console.log(wrapper.toString());
+    }
+  //  console.log(wrapper.length);
 }
 
 module.exports = messages;
