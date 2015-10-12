@@ -4,7 +4,7 @@
   "description": "quickly create your blog with jekyll staff",
   "main": "index.js",
   "bin": {
-    "firekyll": "fk.js"
+    "fk": "./bin/fk.js"
   },
   "dependencies": {
     "chalk": "^1.1.1",
