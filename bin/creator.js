@@ -90,19 +90,22 @@ creator.prototype.new = function(){
         if(!_project){
           var _commands = ['new',ctx.program.new];
           ctx.utilities.executeCommand(ctx.jekyll,_commands,ctx.cp);
+          ctx.createGenerator(ctx.program.new);
           ctx.messages.successCreateProject();
-
-          var generator = require('firekyll-generator-gulp-webapp');
-          var run = new generator();
-          run.directory();
         }else{
-          ctx.messages.projectExists()
+          ctx.messages.projectExists();
         }
       }catch(e){
-        console.log(e.code);
+        ctx.messages.errorProjectNew();
       } 
     }
   });
+}
+
+creator.prototype.createGenerator = function(path){
+  var generator = require('firekyll-generator-gulp-webapp');
+  var run = new generator();
+  run.directory(path);
 }
 
 /*

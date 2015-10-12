@@ -12,7 +12,7 @@ function isTrueCommand(option){
 }
 
 function executeCommand(command,_commands,cp){
-  cp.spawn(
+  cp.spawnSync(
     command,
     _commands,
     {

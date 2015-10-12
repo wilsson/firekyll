@@ -68,6 +68,13 @@ messages.prototype.successCreateProject = function(){
   console.log(this.output);
 }
 
+messages.prototype.errorProjectNew = function(error){
+  this.output+='\n';
+  this.output+=' '+this.plugins.symbols.error+' '+this.plugins.chalk.red(' '+error);
+  this.output+='\n';
+  console.log(this.output);
+}
+
 messages.prototype.listPosts = function(a,b,wrapper,length){
   wrapper.push(
   	  [this.plugins.chalk.magenta(b+' bytes'),this.plugins.chalk.bold(a)]
