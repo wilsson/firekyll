@@ -84,13 +84,11 @@ creator.prototype.new = function(){
       if(answers.home == ctx.choicesNew[1]){    
         var _commands = ['new',ctx.program.new];
         ctx.utilities.executeCommand(ctx.jekyll,_commands,ctx.cp,ctx.executeCommandCwd);
-        console.log('mensaje exitoso 1');
         ctx.messages.successCreateProject();
       }
       
       if(answers.home == ctx.choicesNew[2]){
         try{          
-          console.log(ctx.program.new,'<<');
           ctx.createGenerator();
           var _commands = ['new',ctx.program.new];
           ctx.utilities.executeCommand(ctx.jekyll,_commands,ctx.cp,ctx.executeCommandCwd);
