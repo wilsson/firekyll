@@ -88,15 +88,15 @@ creator.prototype.new = function(){
     if(answers.home == ctx.choicesNew[2]){
       try{
         if(!_project){
+          ctx.createGenerator(ctx.program.new);
           var _commands = ['new',ctx.program.new];
           ctx.utilities.executeCommand(ctx.jekyll,_commands,ctx.cp);
-          ctx.createGenerator(ctx.program.new);
           ctx.messages.successCreateProject();
         }else{
           ctx.messages.projectExists();
         }
       }catch(e){
-        ctx.messages.errorProjectNew();
+        ctx.messages.errorProjectNew(e);
       } 
     }
   });
