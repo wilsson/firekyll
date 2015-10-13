@@ -71,7 +71,7 @@ messages.prototype.successCreateProject = function(){
 messages.prototype.errorProjectNew = function(error){
   this.output+='\n';
   this.output+=' '+this.plugins.symbols.error+' '+this.plugins.chalk.red(' '+error)+'\n\n';
-  this.output+=' '+this.plugins.chalk.red('please install : npm install firekyll-generator-gulp-webapp g');
+  this.output+=' '+this.plugins.chalk.red('please install : npm install firekyll-generator-gulp-webapp -g');
   this.output+='\n';
   console.log(this.output);
 }
