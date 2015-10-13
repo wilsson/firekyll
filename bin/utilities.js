@@ -11,13 +11,12 @@ function isTrueCommand(option){
   return flag;  
 }
 
-function executeCommand(command,_commands,cp){
+function executeCommand(command,_commands,cp,cwd){
+  console.log(command,_commands,cwd);
   cp.spawnSync(
     command,
     _commands,
-    {
-      cwd:process.cwd()
-    }
+    cwd
   );
 }
 

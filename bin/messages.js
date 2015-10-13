@@ -13,6 +13,7 @@ function messages(plugins){
 }
 
 messages.prototype.server = function(){
+  this.output='';
   this.output+='\n';
   this.output+=' '+this.plugins.symbols.success+' '+this.plugins.chalk.green('server ready - port : '+ 4000);
   this.output+='\n';
@@ -20,6 +21,7 @@ messages.prototype.server = function(){
 }
 
 messages.prototype.build = function(){
+  this.output='';
   this.output+='\n';
   this.output+=' '+this.plugins.symbols.success+' '+this.plugins.chalk.green('build jekyll');
   this.output+='\n';
@@ -27,6 +29,7 @@ messages.prototype.build = function(){
 }
 
 messages.prototype.commandNotFound = function(){
+  this.output='';
   this.output+='\n';
   this.output+=' '+this.plugins.symbols.warning+' '+this.plugins.chalk.yellow('command not found');
   this.output+='\n';
@@ -34,6 +37,7 @@ messages.prototype.commandNotFound = function(){
 }
 
 messages.prototype.successCreatePost = function(){
+  this.output='';
   this.output+='\n';
   this.output+=' '+this.plugins.symbols.success+' '+this.plugins.chalk.green('post created');
   this.output+='\n';
@@ -41,6 +45,7 @@ messages.prototype.successCreatePost = function(){
 }
 
 messages.prototype.postExists = function(){
+  this.output='';
   this.output+='\n';
   this.output+=' '+this.plugins.symbols.warning+' '+this.plugins.chalk.yellow('post name already exists');
   this.output+='\n';
@@ -48,6 +53,7 @@ messages.prototype.postExists = function(){
 }
 
 messages.prototype.projectExists = function(){
+  this.output='';
   this.output+='\n';
   this.output+=' '+this.plugins.symbols.warning+' '+this.plugins.chalk.yellow('project name already exists');
   this.output+='\n';
@@ -55,6 +61,7 @@ messages.prototype.projectExists = function(){
 }
 
 messages.prototype.directoryPostNotExist = function(){
+  this.output='';
   this.output+='\n';
   this.output+=' '+this.plugins.symbols.warning+' '+this.plugins.chalk.yellow('directory does not exist _posts');
   this.output+='\n';
@@ -62,6 +69,7 @@ messages.prototype.directoryPostNotExist = function(){
 }
 
 messages.prototype.successCreateProject = function(){
+  this.output='';
   this.output+='\n';
   this.output+=' '+this.plugins.symbols.success+' '+this.plugins.chalk.green('project created jekyll');
   this.output+='\n';
@@ -69,6 +77,7 @@ messages.prototype.successCreateProject = function(){
 }
 
 messages.prototype.errorProjectNew = function(error){
+  this.output='';
   this.output+='\n';
   this.output+=' '+this.plugins.symbols.error+' '+this.plugins.chalk.red(' '+error)+'\n\n';
   this.output+=' '+this.plugins.chalk.red('please install : npm install firekyll-generator-gulp-webapp -g');

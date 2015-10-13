@@ -26,6 +26,9 @@ function creator(plugins){
     head:[this.plugins.chalk.cyan.bold('Size'),this.plugins.chalk.cyan.bold('Name')],
     colWidths:[25,50]
   });
+  this.executeCommandCwd= {
+            cwd:process.cwd()
+          }
   this.choicesNew = [
     new this.inquirer.Separator(),
     'Create with firekyll',
@@ -41,21 +44,19 @@ function creator(plugins){
  */
 
 creator.prototype.newpost = function(){
-  var _posts = this.searchFile(process.cwd(),'_posts');
+  var _posts = this.fs.existsSync(process.cwd,'_posts');
   if(_posts){
-    var _file = this.searchFile('_posts',this.createNamePost());
+    var _file = this.fs.existsSync(this.path.join('_posts',this.createNamePost()));
     if(!_file){
       this.fs.createReadStream(this.path.join(__dirname,'templates/post'))
         .pipe(this.fs.createWriteStream(this.path.join('_posts',this.createNamePost())));
       this.messages.successCreatePost();
+      process.exit();
     }
-    if(_file){
-      this.messages.postExists();
-    }
+    this.messages.postExists();
+    process.exit();
   }
-  if(!_posts){
-    this.messages.directoryPostNotExist();
-  }
+  this.messages.directoryPostNotExist();
 };
 
 /*
@@ -74,38 +75,40 @@ creator.prototype.new = function(){
       choices:ctx.choicesNew,
     }
   ],function(answers){
-    var _project = ctx.searchFile(process.cwd(),ctx.program.new);
-    if(answers.home == ctx.choicesNew[1]){
-      if(!_project){
-        var _commands = ['new',ctx.program.new];
-        ctx.utilities.executeCommand(ctx.jekyll,_commands,ctx.cp);
-        ctx.messages.successCreateProject();
-      }else{
-        ctx.messages.projectExists();
-      }
+    var _project = ctx.fs.existsSync(ctx.path.join(process.cwd(),ctx.program.new));
+    if(_project){
+      ctx.messages.projectExists();
     }
 
-    if(answers.home == ctx.choicesNew[2]){
-      try{
-        if(!_project){
-          ctx.createGenerator(ctx.program.new);
+    if(!_project){
+      if(answers.home == ctx.choicesNew[1]){    
+        var _commands = ['new',ctx.program.new];
+        ctx.utilities.executeCommand(ctx.jekyll,_commands,ctx.cp,ctx.executeCommandCwd);
+        console.log('mensaje exitoso 1');
+        ctx.messages.successCreateProject();
+      }
+      
+      if(answers.home == ctx.choicesNew[2]){
+        try{          
+          console.log(ctx.program.new,'<<');
+          ctx.createGenerator();
           var _commands = ['new',ctx.program.new];
-          ctx.utilities.executeCommand(ctx.jekyll,_commands,ctx.cp);
+          ctx.utilities.executeCommand(ctx.jekyll,_commands,ctx.cp,ctx.executeCommandCwd);
+          ctx.fs.createReadStream(ctx.path.join(__dirname,'/templates/config'))
+            .pipe(ctx.fs.createWriteStream(ctx.path.join(ctx.program.new,'_config.yml')));
           ctx.messages.successCreateProject();
-        }else{
-          ctx.messages.projectExists();
-        }
-      }catch(e){
-        ctx.messages.errorProjectNew(e);
-      } 
+        }catch(e){
+          ctx.messages.errorProjectNew(e);
+        } 
+      }
     }
   });
 }
 
-creator.prototype.createGenerator = function(path){
+creator.prototype.createGenerator = function(){
   var generator = require('firekyll-generator-gulp-webapp');
   var run = new generator();
-  run.directory(path);
+  run.directory(this.program.new);
 }
 
 /*
@@ -116,7 +119,7 @@ creator.prototype.createGenerator = function(path){
 
 creator.prototype.server = function(){
   var _commands = ['server'];
-  this.utilities.executeCommand(this.jekyll,_commands,this.cp);
+  this.utilities.executeCommand(this.jekyll,_commands,this.cp,this.executeCommandCwd);
   this.messages.server();
 }
 
@@ -128,7 +131,7 @@ creator.prototype.server = function(){
 
 creator.prototype.build = function(){
   var _commands = ['build'];
-  this.utilities.executeCommand(this.jekyll,_commands,this.cp);
+  this.utilities.executeCommand(this.jekyll,_commands,this.cp,this.executeCommandCwd);
   this.messages.build();
 }
 
@@ -150,23 +153,6 @@ creator.prototype.createNamePost = function(){
 
 /*
  *
- * @function search directory _posts or one post
- *
- */
-
-creator.prototype.searchFile = function(cwd,name){
-  var _posts = [];
-  _posts = this.fs.readdirSync(cwd);
-  for(var _i = 0;_i<_posts.length;_i++){
-    if(_posts[_i] == name){
-      return true;
-    }
-  }
-  return false;
-}
-
-/*
- *
  * @function List all posts
  *
  */
@@ -174,15 +160,15 @@ creator.prototype.searchFile = function(cwd,name){
 creator.prototype.listPosts = function(){
   var _files = [];
   var stats;
-  if(this.searchFile(process.cwd(),'_posts')){
+  if(this.fs.existsSync(this.path.join(process.cwd(),'_posts'))){
     _files = this.fs.readdirSync('_posts');
     for (var _i=0; _i<_files.length;_i++) {
       stats = this.fs.statSync(this.path.join(process.cwd(),'_posts',_files[_i]));
         this.messages.listPosts(_files[_i],stats.size,this.wrapper,_files.length);
     };
-  }else{
-    this.messages.directoryPostNotExist();
+    process.exit();
   }
+  this.messages.directoryPostNotExist();
 };
 
 module.exports = creator;
