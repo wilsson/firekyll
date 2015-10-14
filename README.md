@@ -1,10 +1,10 @@
-##firekyll
+## firekyll
 
 Use tool for quick Jekyll.
 
-##Commands
+## Commands
 
-####new
+#### new
 
 To create a new project gives you 2 options.
 
@@ -15,7 +15,7 @@ To create a new project gives you 2 options.
 $ fk new [name]
 ```
 
-####newpost
+#### newpost
 
 You create a new post with the format required for Jekyll , in the folder **_posts**.
 
@@ -23,7 +23,7 @@ You create a new post with the format required for Jekyll , in the folder **_pos
 $ fk newpost [name]
 ```
 
-####list
+#### list
 
 Will list all created posts indicating the weight and the name.
 
@@ -31,7 +31,7 @@ Will list all created posts indicating the weight and the name.
 $ fk list [name]
 ```
 
-####server
+#### server
 
 Create a server using the Jekyll gem.
 
@@ -39,7 +39,7 @@ Create a server using the Jekyll gem.
 $ fk server [name]
 ```
 
-####build
+#### build
 
 Copilar the project with the Jekyll gem.
 
