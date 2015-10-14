@@ -16,8 +16,8 @@ var plugins = {
   creator   : require('./creator'),
   messages  : require('./messages'),
   utilities : require('./utilities'),
-    table    : require('cli-table'),
-    inquirer: require('inquirer')
+  table     : require('cli-table'),
+  inquirer  : require('inquirer')
 };
 
 module.exports = plugins;

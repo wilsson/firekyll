@@ -9,7 +9,6 @@
 function messages(plugins){
   this.output = '';
   this.plugins = plugins;
-    this.tablero = [];
 }
 
 messages.prototype.server = function(){

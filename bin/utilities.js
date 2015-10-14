@@ -12,14 +12,12 @@ function isTrueCommand(option){
 }
 
 function executeCommand(command,_commands,cp,cwd){
-  console.log(command,_commands,cwd);
   cp.spawnSync(
     command,
     _commands,
     cwd
   );
 }
-
 
 module.exports = {
   isTrueCommand : isTrueCommand,

@@ -32,7 +32,7 @@ function creator(plugins){
   this.choicesNew = [
     new this.inquirer.Separator(),
     'Create with firekyll',
-    'Create with firekyll + gulp + browserSync + sass',
+    'Create with firekyll and (gulp + browserSync + express + sass)',
     new this.inquirer.Separator()
   ]    
 }
@@ -44,19 +44,21 @@ function creator(plugins){
  */
 
 creator.prototype.newpost = function(){
-  var _posts = this.fs.existsSync(process.cwd,'_posts');
+  var _posts = this.fs.existsSync(this.path.join(process.cwd(),'_posts'));
   if(_posts){
     var _file = this.fs.existsSync(this.path.join('_posts',this.createNamePost()));
+    if(_file){
+      this.messages.postExists();
+    }
     if(!_file){
       this.fs.createReadStream(this.path.join(__dirname,'templates/post'))
         .pipe(this.fs.createWriteStream(this.path.join('_posts',this.createNamePost())));
       this.messages.successCreatePost();
-      process.exit();
     }
-    this.messages.postExists();
-    process.exit();
   }
-  this.messages.directoryPostNotExist();
+  if(!_posts){
+    this.messages.directoryPostNotExist();
+  }
 };
 
 /*
@@ -88,7 +90,7 @@ creator.prototype.new = function(){
       }
       
       if(answers.home == ctx.choicesNew[2]){
-        try{          
+        try{
           ctx.createGenerator();
           var _commands = ['new',ctx.program.new];
           ctx.utilities.executeCommand(ctx.jekyll,_commands,ctx.cp,ctx.executeCommandCwd);

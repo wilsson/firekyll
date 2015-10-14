@@ -25,8 +25,8 @@ plugins.program
 plugins.program.on('--help', function(){
   console.log('  Examples:');
   console.log('');
-  console.log('    $ fk new     [nameProject]');
-  console.log('    $ fk newpost [namePost]');
+  console.log('    $ fk new     [name]');
+  console.log('    $ fk newpost [name]');
   console.log('    $ fk list');
   console.log('    $ fk server');
   console.log('    $ fk build');
