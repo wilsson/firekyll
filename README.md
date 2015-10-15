@@ -10,8 +10,9 @@ Use tool for quick Jekyll.
 To create a new project gives you 2 options.
 
  - Create simple with gem jekyll.
- - Create simple with gem jekyll and (gulp + browserSync + express + sass).
- 
+ - Create simple with gem jekyll and (gulp + browserSync + express + sass), using [firekyll-generator-gulp-webapp][1]
+
+
 ```bash
 $ fk new [name]
 ```
@@ -47,3 +48,5 @@ Copilar the project with the Jekyll gem.
 ```bash
 $ fk build [name]
 ```
+
+[1]:https://www.npmjs.com/package/firekyll-generator-gulp-webapp
