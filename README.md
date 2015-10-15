@@ -1,3 +1,4 @@
+[![npm version](https://badge.fury.io/js/firekyll.svg)](https://badge.fury.io/js/firekyll)
 ## firekyll
 
 Use tool for quick Jekyll.
