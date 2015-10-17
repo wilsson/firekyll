@@ -40,7 +40,7 @@ function Creator(plugins){
 
 /*
  *
- * @func create new post for jekyll
+ * @function create new post for jekyll
  *
  */
 
@@ -64,7 +64,7 @@ Creator.prototype.newpost = function(){
 
 /*
  *
- * @func create new project jekyll
+ * @function create new project jekyll
  *
  */
 
@@ -104,7 +104,7 @@ Creator.prototype.new = function(){
 
 /*
  *
- * @func server createGenerator
+ * @function server createGenerator
  *
  */
 
@@ -121,7 +121,7 @@ Creator.prototype.createGenerator = function(){
 
 /*
  *
- * @func server jekyll
+ * @function server jekyll
  *
  */
 
@@ -133,7 +133,7 @@ Creator.prototype.server = function(){
 
 /*
  *
- * @func build jekyll
+ * @function build jekyll
  *
  */
 
@@ -145,7 +145,7 @@ Creator.prototype.build = function(){
 
 /*
  *
- * @func create name post
+ * @function create name post
  * @return {name} - name for post
  *
  */
@@ -162,7 +162,7 @@ Creator.prototype.createNamePost = function(){
 
 /*
  *
- * @func List all posts
+ * @function List all posts
  *
  */
 

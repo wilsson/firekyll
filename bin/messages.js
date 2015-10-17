@@ -1,7 +1,6 @@
 /**
  *
- * @module messages
- * @description modules used for messages cli firekyll
+ * @module messages - modules used for messages cli firekyll
  * @author Wilson Flores
  *
  */
