@@ -4,7 +4,7 @@
 
 Use tool for quick Jekyll.
 
-#### requirement
+#### requires
 
 ```bash
 gem install jekyll

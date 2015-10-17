@@ -3,6 +3,13 @@
  *
  * @module fk
  * @author Wilson Flores
+ * @license MIT
+ * @example
+ *  $ fk new     [name]    
+ *  $ fk newpost [name]   
+ *  $ fk list   
+ *  $ fk server 
+ *  $ fk build   
  *
  */
  
@@ -37,7 +44,8 @@ plugins.program.parse(process.argv);
 
 /*
  *
- * @description Instance {creator}
+ * @instance creator
+ * @param {plugins} plugins - modules used in firekyll
  *
  */
 

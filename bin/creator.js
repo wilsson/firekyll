@@ -8,7 +8,8 @@
 function Creator(plugins){
   /*
    * 
-   * @description plugins parse in this.plugins
+   * @instance messages, wrapper
+   * @param {plugins} plugins - modules used in firekyll
    *
    */
 
@@ -39,7 +40,7 @@ function Creator(plugins){
 
 /*
  *
- * @function create new post for jekyll
+ * @func create new post for jekyll
  *
  */
 
@@ -63,7 +64,7 @@ Creator.prototype.newpost = function(){
 
 /*
  *
- * @function create new project jekyll
+ * @func create new project jekyll
  *
  */
 
@@ -101,6 +102,12 @@ Creator.prototype.new = function(){
   });
 }
 
+/*
+ *
+ * @func server createGenerator
+ *
+ */
+
 Creator.prototype.createGenerator = function(){
   try{
     var generator = require('firekyll-generator-gulp-webapp');
@@ -114,7 +121,7 @@ Creator.prototype.createGenerator = function(){
 
 /*
  *
- * @function server jekyll
+ * @func server jekyll
  *
  */
 
@@ -126,7 +133,7 @@ Creator.prototype.server = function(){
 
 /*
  *
- * @function build jekyll
+ * @func build jekyll
  *
  */
 
@@ -138,7 +145,8 @@ Creator.prototype.build = function(){
 
 /*
  *
- * @function create name post
+ * @func create name post
+ * @return {name} - name for post
  *
  */
 
@@ -154,7 +162,7 @@ Creator.prototype.createNamePost = function(){
 
 /*
  *
- * @function List all posts
+ * @func List all posts
  *
  */
 

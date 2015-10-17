@@ -1,7 +1,6 @@
 /**
  *
- * @module plugins
- * @description modules used in firekyll
+ * @module plugins - modules used in firekyll
  * @author Wilson Flores
  *
  */
