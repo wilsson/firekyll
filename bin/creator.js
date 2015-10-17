@@ -5,7 +5,7 @@
  *
  */
 
-function creator(plugins){
+function Creator(plugins){
   /*
    * 
    * @description plugins parse in this.plugins
@@ -27,8 +27,8 @@ function creator(plugins){
     colWidths:[25,50]
   });
   this.executeCommandCwd= {
-            cwd:process.cwd()
-          }
+    cwd:process.cwd()
+  }
   this.choicesNew = [
     new this.inquirer.Separator(),
     'Create with firekyll',
@@ -43,7 +43,7 @@ function creator(plugins){
  *
  */
 
-creator.prototype.newpost = function(){
+Creator.prototype.newpost = function(){
   var _posts = this.fs.existsSync(this.path.join(process.cwd(),'_posts'));
   if(_posts){
     var _file = this.fs.existsSync(this.path.join('_posts',this.createNamePost()));
@@ -67,7 +67,7 @@ creator.prototype.newpost = function(){
  *
  */
 
-creator.prototype.new = function(){
+Creator.prototype.new = function(){
   var ctx = this;
   this.inquirer.prompt([
     {
@@ -90,25 +90,26 @@ creator.prototype.new = function(){
       }
       
       if(answers.home == ctx.choicesNew[2]){
-        try{
-          ctx.createGenerator();
-          var _commands = ['new',ctx.program.new];
-          ctx.utilities.executeCommand(ctx.jekyll,_commands,ctx.cp,ctx.executeCommandCwd);
-          ctx.fs.createReadStream(ctx.path.join(__dirname,'/templates/config'))
-            .pipe(ctx.fs.createWriteStream(ctx.path.join(ctx.program.new,'_config.yml')));
-          ctx.messages.successCreateProject();
-        }catch(e){
-          ctx.messages.errorProjectNew(e);
-        } 
+        ctx.createGenerator();
+        var _commands = ['new',ctx.program.new];
+        ctx.utilities.executeCommand(ctx.jekyll,_commands,ctx.cp,ctx.executeCommandCwd);
+        ctx.fs.createReadStream(ctx.path.join(__dirname,'/templates/config'))
+          .pipe(ctx.fs.createWriteStream(ctx.path.join(ctx.program.new,'_config.yml')));
+        ctx.messages.successCreateProject();
       }
     }
   });
 }
 
-creator.prototype.createGenerator = function(){
-  var generator = require('firekyll-generator-gulp-webapp');
-  var run = new generator();
-  run.directory(this.program.new);
+Creator.prototype.createGenerator = function(){
+  try{
+    var generator = require('firekyll-generator-gulp-webapp');
+    var run = new generator();
+    run.directory(this.program.new);
+  }catch(e){
+    this.messages.errorProjectNew(e);
+    process.exit();
+  }
 }
 
 /*
@@ -117,7 +118,7 @@ creator.prototype.createGenerator = function(){
  *
  */
 
-creator.prototype.server = function(){
+Creator.prototype.server = function(){
   var _commands = ['server'];
   this.utilities.executeCommand(this.jekyll,_commands,this.cp,this.executeCommandCwd);
   this.messages.server();
@@ -129,7 +130,7 @@ creator.prototype.server = function(){
  *
  */
 
-creator.prototype.build = function(){
+Creator.prototype.build = function(){
   var _commands = ['build'];
   this.utilities.executeCommand(this.jekyll,_commands,this.cp,this.executeCommandCwd);
   this.messages.build();
@@ -141,7 +142,7 @@ creator.prototype.build = function(){
  *
  */
 
-creator.prototype.createNamePost = function(){
+Creator.prototype.createNamePost = function(){
   var d = new Date();
   var date = [];
   date.push(d.getFullYear());
@@ -157,7 +158,7 @@ creator.prototype.createNamePost = function(){
  *
  */
 
-creator.prototype.listPosts = function(){
+Creator.prototype.listPosts = function(){
   var _files = [];
   var stats;
   if(this.fs.existsSync(this.path.join(process.cwd(),'_posts'))){
@@ -171,4 +172,4 @@ creator.prototype.listPosts = function(){
   this.messages.directoryPostNotExist();
 };
 
-module.exports = creator;
+module.exports = Creator;

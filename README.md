@@ -4,6 +4,12 @@
 
 Use tool for quick Jekyll.
 
+#### requirement
+
+```bash
+gem install jekyll
+```
+
 #### Install
 
 ```bash

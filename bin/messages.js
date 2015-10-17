@@ -79,17 +79,18 @@ messages.prototype.errorProjectNew = function(error){
   this.output='';
   this.output+='\n';
   this.output+=' '+this.plugins.symbols.error+' '+this.plugins.chalk.red(' '+error)+'\n\n';
+  this.output+=' '+this.plugins.chalk.red(' '+'Please install : npm install firekyll-generator-gulp-webapp -g')+'\n\n';
   this.output+='\n';
   console.log(this.output);
 }
 
 messages.prototype.listPosts = function(a,b,wrapper,length){
   wrapper.push(
-  	  [this.plugins.chalk.magenta(b+' bytes'),this.plugins.chalk.bold(a)]
+    [this.plugins.chalk.magenta(b+' bytes'),this.plugins.chalk.bold(a)]
   );
-    if(wrapper.length == length){
-        console.log(wrapper.toString());
-    }
+  if(wrapper.length == length){
+    console.log(wrapper.toString());
+  }
 }
 
 module.exports = messages;
